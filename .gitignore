@@ -3,5 +3,6 @@ __pycache__/
 .env
 
 
-/listingApp/frontend/node_modules
-/listingApp/backend/node_modules
+*node_modules
+*package.json
+*package-lock.json
