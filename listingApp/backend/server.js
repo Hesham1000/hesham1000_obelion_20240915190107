@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 const authRoutes = require('./routes/authRoutes');
 // const taskRoutes = require('./routes/taskRoutes');
@@ -9,6 +10,8 @@ const authRoutes = require('./routes/authRoutes');
 // const validationMiddleware = require('./middlewares/validationMiddleware');
 
 const app = express();
+
+dotenv.config({path: 'config.env'});
 
 app.use(bodyParser.json());
 app.use(
@@ -23,11 +26,11 @@ app.use('/auth', authRoutes);
 // app.use('/tasks', taskRoutes);
 
 const db = mysql.createConnection({
-    host: 'sql7.freesqldatabase.com',
-    user: 'sql7731579',
-    password: '4QiUGFnWPL',
-    database: 'sql7731579',
-    port: 3306,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
 });
 
 db.connect((err) => {
@@ -38,7 +41,7 @@ db.connect((err) => {
   console.log('Connected to database');
 });
 
-const PORT = 8000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
