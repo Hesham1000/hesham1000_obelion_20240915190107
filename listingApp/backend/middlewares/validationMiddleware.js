@@ -2,11 +2,11 @@
 const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'agent',
-  password: 'agentpass',
-  database: 'Obelion AI',
-  port: 8000
+  host: 'sql7.freesqldatabase.com',
+    user: 'sql7731579',
+    password: '4QiUGFnWPL',
+    database: 'sql7731579',
+    port: 3306,
 });
 
 const validateEmail = (email) => {

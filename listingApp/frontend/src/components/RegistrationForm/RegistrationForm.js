@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './RegistrationForm.css'
 const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,34 +24,69 @@ const RegistrationForm = () => {
       setMessage('Password must be at least 8 characters long');
       return;
     }
-    setMessage('Registration successful');
+    const userData = {
+      email,
+      password,
+    };
+    fetch('http://localhost:8000/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setMessage('Registration successful');
+        } else {
+          setMessage('Registration failed');
+        }
+      })
+      .catch((error) => {
+        setMessage('Error occurred during registration');
+      });
   };
 
   return (
-    <div>
-      <h1>User Registration</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
+    <div className="registration-form">
+      <h2 className="registration-form-title">User Registration</h2>
+      <form onSubmit={handleSubmit} className="registration-form-form">
+        <div className="registration-form-group">
+          <label className="registration-form-label">Email:</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="registration-form-input"
           />
         </div>
-        <div>
-          <label>Password:</label>
+        <div className="registration-form-group">
+          <label className="registration-form-label">Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="registration-form-input"
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit" className="registration-form-submit">
+          Register
+        </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && (
+        <p
+          className={
+            message === 'Registration successful'
+              ? 'registration-form-success'
+              : 'registration-form-error'
+          }
+        >
+          {message}
+        </p>
+      )}
     </div>
   );
 };

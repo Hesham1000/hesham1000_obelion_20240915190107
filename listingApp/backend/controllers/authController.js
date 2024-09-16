@@ -1,12 +1,14 @@
+const { createUser } = require('../models/userModel');
 const mysql = require('mysql2/promise');
-
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'agent',
-  password: 'agentpass',
-  database: 'Obelion_AI',
-  port: 8000
+  host: 'sql7.freesqldatabase.com',
+  user: 'sql7731579',
+  password: '4QiUGFnWPL',
+  database: 'sql7731579',
+  port: 3306,
 });
+
+
 
 async function registerUser(req, res) {
   const { email, password } = req.body;
@@ -33,8 +35,7 @@ async function registerUser(req, res) {
       return res.status(400).json({ message: 'Email is already registered' });
     }
 
-    await connection.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, password]);
-    connection.release();
+    await createUser(email, password);
 
     return res.status(201).json({ message: 'Registration successful' });
   } catch (error) {

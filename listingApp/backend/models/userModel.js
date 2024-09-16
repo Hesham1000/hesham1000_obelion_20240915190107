@@ -1,28 +1,42 @@
-// listingApp/backend/models/userModel.js
+// userModel.js
 const mysql = require('mysql2/promise');
+const pool = mysql.createPool({
+  host: 'sql7.freesqldatabase.com',
+  user: 'sql7731579',
+  password: '4QiUGFnWPL',
+  database: 'sql7731579',
+  port: 3306,
+});
 
-const dbConfig = {
-  host: 'localhost',
-  user: 'agent',
-  password: 'agentpass',
-  database: 'Obelion_AI',
-  port: 8000,
-};
-
-const createUser = async (email, password) => {
-  const connection = await mysql.createConnection(dbConfig);
-
+async function createTable() {
   try {
-    const [rows] = await connection.execute(
-      'INSERT INTO users (email, password) VALUES (?, ?)',
-      [email, password]
-    );
-    return rows;
+    const connection = await pool.getConnection();
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT,
+        email VARCHAR(255) NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        PRIMARY KEY (id)
+      );
+    `);
+    connection.release();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+createTable();
+
+async function createUser(email, password) {
+  try {
+    const connection = await pool.getConnection();
+    await connection.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, password]);
+    connection.release();
   } catch (error) {
     throw error;
-  } finally {
-    await connection.end();
   }
-};
+}
 
-module.exports = { createUser };
+module.exports = {
+  createUser
+};

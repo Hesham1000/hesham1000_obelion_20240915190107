@@ -1,3 +1,7 @@
 *.pyc
 __pycache__/
 .env
+
+
+/listingApp/frontend/node_modules
+/listingApp/backend/node_modules
