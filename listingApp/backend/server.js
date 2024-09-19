@@ -12,11 +12,10 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 dotenv.config({path: '.env'});
-
 app.use(bodyParser.json());
 app.use(
     cors({
-        origin: "http://localhost:3000"
+        origin: "https://frontai4.cloud-stacks.com"
     })
 );
 // app.use(authMiddleware);
