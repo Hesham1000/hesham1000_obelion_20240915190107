@@ -12,4 +12,3 @@ SELECT * FROM users WHERE email = 'example@example.com';
 
 UPDATE users SET password = 'new_hashed_password_example' WHERE email = 'example@example.com';
 
-DELETE FROM users WHERE email = 'example@example.com';
