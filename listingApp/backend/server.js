@@ -11,7 +11,7 @@ const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
-dotenv.config({path: 'config.env'});
+dotenv.config({path: '.env'});
 
 app.use(bodyParser.json());
 app.use(

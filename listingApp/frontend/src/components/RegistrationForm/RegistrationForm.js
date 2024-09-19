@@ -37,11 +37,7 @@ const RegistrationForm = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
-          setMessage('Registration successful');
-        } else {
-          setMessage('Registration failed');
-        }
+        setMessage(data.message)
       })
       .catch((error) => {
         setMessage('Error occurred during registration');
