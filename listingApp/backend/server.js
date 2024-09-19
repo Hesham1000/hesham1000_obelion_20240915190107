@@ -15,7 +15,7 @@ dotenv.config({path: '.env'});
 app.use(bodyParser.json());
 app.use(
     cors({
-        origin: "https://frontai4.cloud-stacks.com"
+        origin: "https://frontai22.cloud-stacks.com"
     })
 );
 // app.use(authMiddleware);
