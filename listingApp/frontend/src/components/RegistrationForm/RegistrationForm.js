@@ -28,7 +28,7 @@ const RegistrationForm = () => {
       email,
       password,
     };
-    fetch('https://frontai4.cloud-stacks.com/auth/register', {
+    fetch('https://backai22.cloud-stacks.com/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
